@@ -1,0 +1,8 @@
+# FasoCademy — Burkina Faso
+# https://fasocademy.bf
+
+User-agent: *
+Allow: /
+
+# Sitemap (à activer quand tu auras une URL de prod)
+# Sitemap: https://fasocademy.bf/sitemap.xml
