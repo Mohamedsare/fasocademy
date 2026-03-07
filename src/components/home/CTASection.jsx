@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 export default function CTASection() {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#FF6B00] to-[#FF9A44] rounded-3xl p-8 md:p-12">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#FF6B00] to-[#FF9A44] dark:from-[#E55A00] dark:to-[#E57A33] rounded-3xl p-8 md:p-12">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
         
@@ -21,7 +21,7 @@ export default function CTASection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to={createPageUrl('Catalog')}>
-              <Button size="lg" className="bg-white text-[#FF6B00] hover:bg-gray-100 font-bold px-8 h-12 text-base w-full sm:w-auto">
+              <Button size="lg" className="bg-white dark:bg-gray-100 text-[#FF6B00] hover:bg-gray-100 dark:hover:bg-gray-200 font-bold px-8 h-12 text-base w-full sm:w-auto">
                 Commencer maintenant
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>

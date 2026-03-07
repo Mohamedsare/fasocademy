@@ -60,8 +60,8 @@ export default function MyLearning() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-[#1B1F3B]">Mon apprentissage</h1>
-          <p className="text-gray-500 mt-1">Continue là où tu t'es arrêté</p>
+          <h1 className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Mon apprentissage</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Continue là où tu t'es arrêté</p>
         </div>
         <StatsBar streak={user.streak_days || 0} xp={user.xp_points || 0} coursesCompleted={completedCount} />
       </div>
@@ -86,11 +86,11 @@ export default function MyLearning() {
         <div className="text-center py-12 text-gray-400">Chargement...</div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-20">
-          <BookOpen className="w-16 h-16 text-gray-200 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-400 mb-2">
+          <BookOpen className="w-16 h-16 text-gray-200 dark:text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-2">
             {enrollments.length === 0 ? "Aucune formation achetée" : "Aucun résultat"}
           </h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-400 dark:text-gray-500 mb-6">
             {enrollments.length === 0 ? "Explore notre catalogue pour commencer à apprendre" : "Essaie d'ajuster tes filtres"}
           </p>
           {enrollments.length === 0 && (
@@ -104,10 +104,10 @@ export default function MyLearning() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map(enrollment => (
-            <div key={enrollment.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all group">
+            <div key={enrollment.id} className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-lg dark:hover:shadow-gray-900/50 transition-all group">
               <div className="p-5">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-bold text-[#1B1F3B] text-sm leading-snug line-clamp-2 flex-1 mr-2">
+                  <h3 className="font-bold text-[#1B1F3B] dark:text-gray-100 text-sm leading-snug line-clamp-2 flex-1 mr-2">
                     {enrollment.course_title}
                   </h3>
                   {enrollment.status === 'completed' && (
@@ -119,7 +119,7 @@ export default function MyLearning() {
 
                 {/* Progress */}
                 <div className="mb-4">
-                  <div className="flex justify-between text-xs text-gray-500 mb-1.5">
+                  <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1.5">
                     <span>Progression</span>
                     <span className="font-bold text-[#FF6B00]">{enrollment.progress_percent || 0}%</span>
                   </div>
@@ -127,7 +127,7 @@ export default function MyLearning() {
                 </div>
 
                 {/* Stats */}
-                <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
+                <div className="flex items-center gap-4 text-xs text-gray-400 dark:text-gray-500 mb-4">
                   <span className="flex items-center gap-1">
                     <BookOpen className="w-3.5 h-3.5" />
                     {enrollment.completed_lessons?.length || 0} leçons faites
@@ -155,21 +155,21 @@ export default function MyLearning() {
       {/* Certificates */}
       {certificates.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-extrabold text-[#1B1F3B] mb-6 flex items-center gap-2">
+          <h2 className="text-xl font-extrabold text-[#1B1F3B] dark:text-gray-100 mb-6 flex items-center gap-2">
             <Award className="w-6 h-6 text-[#FF6B00]" />
             Mes certificats
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {certificates.map(cert => (
-              <div key={cert.id} className="bg-gradient-to-br from-[#FFF3E8] to-white rounded-2xl p-5 border border-[#FF6B00]/10">
+              <div key={cert.id} className="bg-gradient-to-br from-[#FFF3E8] to-white dark:from-orange-950/30 dark:to-gray-800/50 rounded-2xl p-5 border border-[#FF6B00]/10 dark:border-orange-500/20">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-[#FF6B00]/10 rounded-xl flex items-center justify-center shrink-0">
                     <Award className="w-5 h-5 text-[#FF6B00]" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-sm text-[#1B1F3B]">{cert.course_title}</h4>
-                    <p className="text-xs text-gray-500 mt-1">Délivré le {new Date(cert.issued_date).toLocaleDateString('fr-FR')}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">ID: {cert.certificate_number}</p>
+                    <h4 className="font-bold text-sm text-[#1B1F3B] dark:text-gray-100">{cert.course_title}</h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Délivré le {new Date(cert.issued_date).toLocaleDateString('fr-FR')}</p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">ID: {cert.certificate_number}</p>
                   </div>
                 </div>
               </div>

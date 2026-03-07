@@ -108,9 +108,9 @@ export default function BecomeInstructor() {
   };
 
   return (
-    <div className="bg-[#FAFBFC]">
+    <div className="bg-[#FAFBFC] dark:bg-gray-950">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#1B1F3B] to-[#2D3366] text-white py-20 px-4">
+      <div className="bg-gradient-to-br from-[#1B1F3B] to-[#2D3366] dark:from-gray-900 dark:to-gray-800 text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-[#FF6B00]/20 text-[#FF9A44] px-4 py-2 rounded-full text-sm font-semibold mb-6">
             <GraduationCap className="w-4 h-4" /> Devenez formateur FasoCademy
@@ -133,26 +133,26 @@ export default function BecomeInstructor() {
 
       {/* Benefits */}
       <div className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-extrabold text-[#1B1F3B] text-center mb-3">Pourquoi enseigner sur FasoCademy ?</h2>
-        <p className="text-gray-500 text-center mb-12">Tout ce dont vous avez besoin pour réussir en tant que formateur</p>
+        <h2 className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100 text-center mb-3">Pourquoi enseigner sur FasoCademy ?</h2>
+        <p className="text-gray-500 dark:text-gray-400 text-center mb-12">Tout ce dont vous avez besoin pour réussir en tant que formateur</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {benefits.map((b, i) => (
-            <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-[#FFF3E8] flex items-center justify-center mb-4">
-                <b.icon className="w-6 h-6 text-[#FF6B00]" />
+            <div key={i} className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow">
+              <div className="w-12 h-12 rounded-xl bg-[#FFF3E8] dark:bg-orange-500/20 flex items-center justify-center mb-4">
+                <b.icon className="w-6 h-6 text-[#FF6B00] dark:text-orange-400" />
               </div>
-              <h3 className="font-bold text-[#1B1F3B] mb-2">{b.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
+              <h3 className="font-bold text-[#1B1F3B] dark:text-gray-100 mb-2">{b.title}</h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{b.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Steps */}
-      <div className="bg-white py-16 px-4">
+      <div className="bg-white dark:bg-gray-900/50 py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-[#1B1F3B] text-center mb-3">Comment ça marche ?</h2>
-          <p className="text-gray-500 text-center mb-12">4 étapes pour lancer votre formation</p>
+          <h2 className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100 text-center mb-3">Comment ça marche ?</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-center mb-12">4 étapes pour lancer votre formation</p>
           <div className="space-y-6">
             {steps.map((s, i) => (
               <div key={i} className="flex gap-6 items-start">
@@ -160,8 +160,8 @@ export default function BecomeInstructor() {
                   {s.step}
                 </div>
                 <div className="pt-1">
-                  <h3 className="font-bold text-[#1B1F3B] text-lg mb-1">{s.title}</h3>
-                  <p className="text-gray-500">{s.desc}</p>
+                  <h3 className="font-bold text-[#1B1F3B] dark:text-gray-100 text-lg mb-1">{s.title}</h3>
+                  <p className="text-gray-500 dark:text-gray-400">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -171,15 +171,15 @@ export default function BecomeInstructor() {
 
       {/* FAQ */}
       <div className="max-w-3xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-extrabold text-[#1B1F3B] text-center mb-12">Questions fréquentes</h2>
+        <h2 className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100 text-center mb-12">Questions fréquentes</h2>
         <div className="space-y-4">
           {faqs.map((f, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6">
+            <div key={i} className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
               <div className="flex gap-3">
                 <CheckCircle className="w-5 h-5 text-[#FF6B00] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-bold text-[#1B1F3B] mb-2">{f.q}</h4>
-                  <p className="text-gray-500 text-sm leading-relaxed">{f.a}</p>
+                  <h4 className="font-bold text-[#1B1F3B] dark:text-gray-100 mb-2">{f.q}</h4>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">{f.a}</p>
                 </div>
               </div>
             </div>
@@ -188,18 +188,18 @@ export default function BecomeInstructor() {
       </div>
 
       {/* CTA */}
-      <div className="bg-[#FF6B00] py-16 px-4 text-center text-white">
+      <div className="bg-[#FF6B00] dark:bg-[#E55A00] py-16 px-4 text-center text-white">
         <h2 className="text-3xl font-extrabold mb-4">Prêt à partager votre savoir ?</h2>
         <p className="text-white/80 mb-8 max-w-xl mx-auto">Demandez l'accès formateur et rejoignez les formateurs FasoCademy.</p>
         {!isAuthenticated ? (
           <Link to={createPageUrl('Profile')}>
-            <Button size="lg" className="bg-white text-[#FF6B00] hover:bg-gray-100 font-bold px-8">
+            <Button size="lg" className="bg-white dark:bg-gray-100 text-[#FF6B00] hover:bg-gray-100 dark:hover:bg-gray-200 font-bold px-8">
               Se connecter pour demander l'accès
             </Button>
           </Link>
         ) : isInstructor ? (
           <Link to={createPageUrl('InstructorDashboard')}>
-            <Button size="lg" className="bg-white text-[#FF6B00] hover:bg-gray-100 font-bold px-8">
+            <Button size="lg" className="bg-white dark:bg-gray-100 text-[#FF6B00] hover:bg-gray-100 dark:hover:bg-gray-200 font-bold px-8">
               Accéder à l'espace formateur
             </Button>
           </Link>

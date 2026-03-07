@@ -42,27 +42,27 @@ function CourseCard({ courseId }) {
   return (
     <Link
       to={createPageUrl('CoursePage') + `?id=${course.id}`}
-      className="block mt-2 bg-white border-2 border-[#FF6B00]/30 hover:border-[#FF6B00] rounded-2xl p-3 transition-all hover:shadow-md group"
+      className="block mt-2 bg-white dark:bg-gray-800 border-2 border-[#FF6B00]/30 dark:border-orange-500/30 hover:border-[#FF6B00] dark:hover:border-orange-500 rounded-2xl p-3 transition-all hover:shadow-md dark:hover:shadow-gray-900/50 group"
     >
       {course.thumbnail_url && (
         <img src={course.thumbnail_url} alt={course.title} className="w-full h-24 object-cover rounded-xl mb-2" />
       )}
-      <p className="font-bold text-[#1B1F3B] text-sm leading-snug group-hover:text-[#FF6B00] transition-colors">{course.title}</p>
+      <p className="font-bold text-[#1B1F3B] dark:text-gray-100 text-sm leading-snug group-hover:text-[#FF6B00] dark:group-hover:text-orange-400 transition-colors">{course.title}</p>
       <div className="flex items-center gap-2 mt-1.5 flex-wrap">
         {course.price_cfa > 0 ? (
           <span className="text-xs font-bold text-[#FF6B00] bg-[#FFF3E8] px-2 py-0.5 rounded-full">
             {course.price_cfa?.toLocaleString()} FCFA
           </span>
         ) : (
-          <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">Gratuit 🎉</span>
+          <span className="text-xs font-bold text-green-600 dark:text-emerald-400 bg-green-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full">Gratuit 🎉</span>
         )}
         {course.level && (
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+          <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
             {levelMap[course.level] || course.level}
           </span>
         )}
         {course.duration_hours && (
-          <span className="text-xs text-gray-500">⏱️ {course.duration_hours}h</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">⏱️ {course.duration_hours}h</span>
         )}
       </div>
       <div className="flex items-center gap-1 mt-2 text-[#FF6B00] text-xs font-semibold">

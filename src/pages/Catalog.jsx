@@ -132,16 +132,16 @@ export default function Catalog() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-[#1B1F3B]">Catalogue des formations</h1>
-        <p className="text-gray-500 mt-2">Explore nos formations et commence à apprendre aujourd'hui</p>
+        <h1 className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Catalogue des formations</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-2">Explore nos formations et commence à apprendre aujourd'hui</p>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 mb-6 space-y-3">
+      <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 mb-6 space-y-3">
         {/* Search + Sort row */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
             <Input
               value={search}
               onChange={e => setSearch(e.target.value)}
@@ -163,7 +163,7 @@ export default function Catalog() {
           </Select>
           <Button
             variant="outline"
-            className={`h-11 gap-2 ${showAdvanced ? 'border-[#FF6B00] text-[#FF6B00]' : ''}`}
+            className={`h-11 gap-2 ${showAdvanced ? 'border-[#FF6B00] text-[#FF6B00] dark:border-orange-500 dark:text-orange-400' : ''}`}
             onClick={() => setShowAdvanced(v => !v)}
           >
             <SlidersHorizontal className="w-4 h-4" />
@@ -177,7 +177,7 @@ export default function Catalog() {
 
         {/* Advanced filters */}
         {showAdvanced && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 border-t border-gray-100">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="h-10"><SelectValue placeholder="Catégorie" /></SelectTrigger>
               <SelectContent>
@@ -214,13 +214,13 @@ export default function Catalog() {
         {/* Active filter tags */}
         {activeFilters.length > 0 && (
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <span className="text-sm text-gray-500">{filteredCourses.length} résultat(s)</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{filteredCourses.length} résultat(s)</span>
             {activeFilters.map(f => (
-              <Badge key={f.key} variant="secondary" className="gap-1 cursor-pointer hover:bg-red-50 hover:text-red-500 transition-colors" onClick={f.clear}>
+              <Badge key={f.key} variant="secondary" className="gap-1 cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-500 dark:hover:text-red-400 transition-colors" onClick={f.clear}>
                 {f.label} <X className="w-3 h-3" />
               </Badge>
             ))}
-            <Button variant="ghost" size="sm" onClick={resetAll} className="text-[#FF6B00] text-xs h-6 px-2">
+            <Button variant="ghost" size="sm" onClick={resetAll} className="text-[#FF6B00] dark:text-orange-400 text-xs h-6 px-2">
               Tout effacer
             </Button>
           </div>
@@ -231,7 +231,7 @@ export default function Catalog() {
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[1,2,3,4,5,6,7,8].map(i => (
-            <div key={i} className="bg-white rounded-2xl p-4 space-y-3">
+            <div key={i} className="bg-white dark:bg-gray-800/50 rounded-2xl p-4 space-y-3">
               <Skeleton className="aspect-video rounded-xl" />
               <Skeleton className="h-4 w-3/4" />
               <Skeleton className="h-3 w-1/2" />
@@ -247,9 +247,9 @@ export default function Catalog() {
         </div>
       ) : (
         <div className="text-center py-20">
-          <BookOpen className="w-16 h-16 text-gray-200 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-400 mb-2">Aucune formation trouvée</h3>
-          <p className="text-gray-400">Essaie de modifier tes filtres de recherche</p>
+          <BookOpen className="w-16 h-16 text-gray-200 dark:text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-2">Aucune formation trouvée</h3>
+          <p className="text-gray-400 dark:text-gray-500">Essaie de modifier tes filtres de recherche</p>
           <Button variant="outline" className="mt-4" onClick={resetAll}>Réinitialiser les filtres</Button>
         </div>
       )}

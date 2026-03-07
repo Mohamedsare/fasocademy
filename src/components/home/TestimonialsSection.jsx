@@ -39,11 +39,11 @@ export default function TestimonialsSection() {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B]">Ils ont transformé leur carrière</h2>
-        <p className="text-gray-500 mt-2">Témoignages de nos apprenants</p>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Ils ont transformé leur carrière</h2>
+        <p className="text-gray-500 dark:text-gray-400 mt-2">Témoignages de nos apprenants</p>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" className="mt-5 border-[#FF6B00] text-[#FF6B00] hover:bg-[#FFF3E8]">
+            <Button variant="outline" className="mt-5 border-[#FF6B00] text-[#FF6B00] hover:bg-[#FFF3E8] dark:hover:bg-orange-950/30 dark:border-orange-500 dark:text-orange-400">
               <PenLine className="w-4 h-4 mr-2" />
               Partager mon expérience
             </Button>
@@ -59,23 +59,23 @@ export default function TestimonialsSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {list.map((t, i) => (
-          <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all relative">
-            <Quote className="w-8 h-8 text-[#FF6B00]/10 absolute top-4 right-4" />
+          <div key={i} className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/50 transition-all relative">
+            <Quote className="w-8 h-8 text-[#FF6B00]/10 dark:text-orange-500/20 absolute top-4 right-4" />
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#FF6B00] to-[#FF9A44] flex items-center justify-center text-white font-bold text-lg">
                 {t.user_name?.[0]?.toUpperCase() || 'A'}
               </div>
               <div>
-                <h4 className="font-bold text-[#1B1F3B] text-sm">{t.user_name}</h4>
-                <p className="text-xs text-gray-500">{[t.role, t.city].filter(Boolean).join(' • ')}</p>
+                <h4 className="font-bold text-[#1B1F3B] dark:text-gray-100 text-sm">{t.user_name}</h4>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{[t.role, t.city].filter(Boolean).join(' • ')}</p>
               </div>
             </div>
             <div className="flex mb-3">
               {[1,2,3,4,5].map(s => (
-                <Star key={s} className={`w-4 h-4 ${s <= t.rating ? 'fill-[#F59E0B] text-[#F59E0B]' : 'text-gray-200'}`} />
+                <Star key={s} className={`w-4 h-4 ${s <= t.rating ? 'fill-[#F59E0B] text-[#F59E0B]' : 'text-gray-200 dark:text-gray-600'}`} />
               ))}
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">{t.content}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{t.content}</p>
           </div>
         ))}
       </div>

@@ -93,9 +93,9 @@ export default function Profile() {
   if (!isAuthenticated || !user) {
     return (
       <div className="max-w-md mx-auto px-4 sm:px-6 py-12">
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-          <h1 className="text-2xl font-extrabold text-[#1B1F3B] mb-2">Connexion / Inscription</h1>
-          <p className="text-gray-500 text-sm mb-6">Accède à ton espace FasoCademy</p>
+        <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm dark:shadow-gray-900/50">
+          <h1 className="text-2xl font-extrabold text-[#1B1F3B] dark:text-gray-100 mb-2">Connexion / Inscription</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">Accède à ton espace FasoCademy</p>
 
           <Tabs value={authTab} onValueChange={(v) => { setAuthTab(v); setAuthError(''); }}>
             <TabsList className="grid w-full grid-cols-2 mb-4">
@@ -151,14 +151,14 @@ export default function Profile() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
       {/* Header */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 mb-6">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-16 h-16 rounded-2xl bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] font-bold text-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-[#FF6B00]/10 dark:bg-orange-500/20 flex items-center justify-center text-[#FF6B00] dark:text-orange-400 font-bold text-2xl">
             {user.full_name?.[0]?.toUpperCase() || 'U'}
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-[#1B1F3B]">{user.full_name}</h1>
-            <p className="text-gray-500 text-sm">{user.email}</p>
+            <h1 className="text-2xl font-extrabold text-[#1B1F3B] dark:text-gray-100">{user.full_name}</h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">{user.email}</p>
           </div>
         </div>
         <StatsBar streak={user.streak_days || 0} xp={user.xp_points || 0} coursesCompleted={completedCount} />
@@ -166,21 +166,21 @@ export default function Profile() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 text-center">
-          <BookOpen className="w-8 h-8 text-[#FF6B00] mx-auto mb-2" />
-          <div className="text-2xl font-extrabold text-[#1B1F3B]">{enrollments.length}</div>
-          <div className="text-xs text-gray-500">Cours inscrits</div>
+        <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 text-center">
+          <BookOpen className="w-8 h-8 text-[#FF6B00] dark:text-orange-400 mx-auto mb-2" />
+          <div className="text-2xl font-extrabold text-[#1B1F3B] dark:text-gray-100">{enrollments.length}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">Cours inscrits</div>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 text-center">
-          <Award className="w-8 h-8 text-[#00C9A7] mx-auto mb-2" />
-          <div className="text-2xl font-extrabold text-[#1B1F3B]">{completedCount}</div>
-          <div className="text-xs text-gray-500">Cours terminés</div>
+        <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-5 text-center">
+          <Award className="w-8 h-8 text-[#00C9A7] dark:text-emerald-400 mx-auto mb-2" />
+          <div className="text-2xl font-extrabold text-[#1B1F3B] dark:text-gray-100">{completedCount}</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400">Cours terminés</div>
         </div>
       </div>
 
       {/* Edit form */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-5">
-        <h2 className="text-lg font-bold text-[#1B1F3B]">Modifier mon profil</h2>
+      <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 space-y-5">
+        <h2 className="text-lg font-bold text-[#1B1F3B] dark:text-gray-100">Modifier mon profil</h2>
 
         <div>
           <Label>Téléphone</Label>
@@ -216,7 +216,7 @@ export default function Profile() {
             {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
             Enregistrer
           </Button>
-          <Button type="button" variant="outline" onClick={() => logout()} className="text-red-500 border-red-200 hover:bg-red-50">
+          <Button type="button" variant="outline" onClick={() => logout()} className="text-red-500 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-950/50">
             <LogOut className="w-4 h-4 mr-2" />
             Déconnexion
           </Button>

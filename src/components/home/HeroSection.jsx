@@ -6,7 +6,7 @@ import { Play, ArrowRight, CheckCircle, Users, BookOpen, Award } from 'lucide-re
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#1B1F3B] via-[#252A4A] to-[#1B1F3B]">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#1B1F3B] via-[#252A4A] to-[#1B1F3B] dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#FF6B00]/10 rounded-full blur-3xl" />
@@ -94,13 +94,13 @@ export default function HeroSection() {
               </div>
 
               {/* Floating card */}
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-2xl flex items-center gap-3">
+              <div className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-2xl flex items-center gap-3 border border-gray-100 dark:border-gray-700">
                 <div className="w-10 h-10 bg-[#00C9A7]/10 rounded-full flex items-center justify-center">
                   <Award className="w-5 h-5 text-[#00C9A7]" />
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-[#1B1F3B]">Certificat obtenu !</div>
-                  <div className="text-xs text-gray-500">Développement Web</div>
+                  <div className="text-sm font-bold text-[#1B1F3B] dark:text-gray-100">Certificat obtenu !</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">Développement Web</div>
                 </div>
               </div>
             </div>

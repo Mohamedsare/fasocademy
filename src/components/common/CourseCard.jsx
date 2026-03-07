@@ -11,7 +11,7 @@ export default function CourseCard({ course }) {
 
   return (
     <Link to={createPageUrl('CoursePage') + `?id=${course.id}`} className="group block">
-      <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-[#FF6B00]/30 hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+      <div className="bg-white dark:bg-gray-800/50 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-[#FF6B00]/30 dark:hover:border-orange-500/50 hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 h-full flex flex-col">
         {/* Thumbnail */}
         <div className="relative aspect-video overflow-hidden">
           <img
@@ -47,21 +47,21 @@ export default function CourseCard({ course }) {
         {/* Content */}
         <div className="p-4 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-medium text-[#FF6B00] bg-[#FFF3E8] px-2 py-0.5 rounded-full capitalize">
+            <span className="text-xs font-medium text-[#FF6B00] dark:text-orange-400 bg-[#FFF3E8] dark:bg-orange-900/30 px-2 py-0.5 rounded-full capitalize">
               {course.category?.replace(/-/g, ' ') || 'Formation'}
             </span>
-            <span className="text-xs text-gray-400 capitalize">{course.level || 'Débutant'}</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 capitalize">{course.level || 'Débutant'}</span>
           </div>
 
-          <h3 className="font-bold text-[#1B1F3B] text-sm leading-snug mb-2 line-clamp-2 group-hover:text-[#FF6B00] transition-colors">
+          <h3 className="font-bold text-[#1B1F3B] dark:text-gray-100 text-sm leading-snug mb-2 line-clamp-2 group-hover:text-[#FF6B00] dark:group-hover:text-orange-400 transition-colors">
             {course.title}
           </h3>
 
-          <p className="text-xs text-gray-500 mb-3 line-clamp-2">{course.description}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">{course.description}</p>
 
           {/* Instructor */}
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-full bg-gray-200 overflow-hidden">
+            <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-600 overflow-hidden">
               {course.instructor_photo_url ? (
                 <img src={course.instructor_photo_url} alt="" className="w-full h-full object-cover" />
               ) : (
@@ -70,11 +70,11 @@ export default function CourseCard({ course }) {
                 </div>
               )}
             </div>
-            <span className="text-xs text-gray-600 truncate">{course.instructor_name || 'Formateur'}</span>
+            <span className="text-xs text-gray-600 dark:text-gray-400 truncate">{course.instructor_name || 'Formateur'}</span>
           </div>
 
           {/* Meta */}
-          <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
+          <div className="flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500 mb-3">
             {course.duration_hours > 0 && (
               <span className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />{course.duration_hours}h
@@ -96,7 +96,7 @@ export default function CourseCard({ course }) {
               <span className="text-sm font-bold text-[#F59E0B]">{course.average_rating.toFixed(1)}</span>
               <div className="flex">
                 {[1,2,3,4,5].map(i => (
-                  <Star key={i} className={`w-3.5 h-3.5 ${i <= Math.round(course.average_rating) ? 'fill-[#F59E0B] text-[#F59E0B]' : 'text-gray-200'}`} />
+                  <Star key={i} className={`w-3.5 h-3.5 ${i <= Math.round(course.average_rating) ? 'fill-[#F59E0B] text-[#F59E0B]' : 'text-gray-200 dark:text-gray-600'}`} />
                 ))}
               </div>
               <span className="text-xs text-gray-400">({course.total_reviews})</span>
@@ -104,17 +104,17 @@ export default function CourseCard({ course }) {
           )}
 
           {/* Price */}
-          <div className="mt-auto pt-3 border-t border-gray-50 flex items-end justify-between">
+          <div className="mt-auto pt-3 border-t border-gray-50 dark:border-gray-700 flex items-end justify-between">
             <div>
               {course.is_free ? (
                 <span className="text-lg font-extrabold text-[#00C9A7]">Gratuit</span>
               ) : (
                 <>
-                  <span className="text-lg font-extrabold text-[#1B1F3B]">
+                  <span className="text-lg font-extrabold text-[#1B1F3B] dark:text-gray-100">
                     {course.price_cfa?.toLocaleString('fr-FR')} CFA
                   </span>
                   {course.original_price_cfa && course.original_price_cfa > course.price_cfa && (
-                    <span className="text-xs text-gray-400 line-through ml-2">
+                    <span className="text-xs text-gray-400 dark:text-gray-500 line-through ml-2">
                       {course.original_price_cfa.toLocaleString('fr-FR')} CFA
                     </span>
                   )}

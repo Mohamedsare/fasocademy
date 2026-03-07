@@ -9,12 +9,14 @@ import NotificationBell from '@/components/common/NotificationBell';
 import AriaChat from '@/components/common/AriaChat';
 import {
   Home, BookOpen, GraduationCap, Users, User, Search, Menu, X, 
-  LogOut, BarChart3
+  LogOut, BarChart3, Sun, Moon
 } from 'lucide-react';
+import { useTheme } from '@/lib/ThemeContext';
 import { Button } from '@/components/ui/button';
 
 export default function Layout({ children, currentPageName }) {
   const { logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,9 +52,9 @@ export default function Layout({ children, currentPageName }) {
   const isAdmin = user?.role === 'admin';
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC]">
+    <div className="min-h-screen bg-[#FAFBFC] dark:bg-gray-950 transition-colors">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             {/* Left */}
@@ -71,8 +73,8 @@ export default function Layout({ children, currentPageName }) {
                       to={createPageUrl(item.page)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                         isActive 
-                          ? 'text-[#FF6B00] bg-[#FFF3E8]' 
-                          : 'text-gray-600 hover:text-[#1B1F3B] hover:bg-gray-50'
+                          ? 'text-[#FF6B00] bg-[#FFF3E8] dark:bg-orange-900/30' 
+                          : 'text-gray-600 dark:text-gray-400 hover:text-[#1B1F3B] dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -85,8 +87,8 @@ export default function Layout({ children, currentPageName }) {
                     to={createPageUrl('InstructorDashboard')}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       currentPageName === 'InstructorDashboard' 
-                        ? 'text-[#FF6B00] bg-[#FFF3E8]' 
-                        : 'text-gray-600 hover:text-[#1B1F3B] hover:bg-gray-50'
+                        ? 'text-[#FF6B00] bg-[#FFF3E8] dark:bg-orange-900/30' 
+                        : 'text-gray-600 dark:text-gray-400 hover:text-[#1B1F3B] dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800'
                     }`}
                   >
                     <BarChart3 className="w-4 h-4" />
@@ -98,8 +100,8 @@ export default function Layout({ children, currentPageName }) {
                     to={createPageUrl('AdminDashboard')}
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       currentPageName === 'AdminDashboard'
-                        ? 'text-[#FF6B00] bg-[#FFF3E8]' 
-                        : 'text-gray-600 hover:text-[#1B1F3B] hover:bg-gray-50'
+                        ? 'text-[#FF6B00] bg-[#FFF3E8] dark:bg-orange-900/30' 
+                        : 'text-gray-600 dark:text-gray-400 hover:text-[#1B1F3B] dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800'
                     }`}
                   >
                     <Users className="w-4 h-4" />
@@ -110,8 +112,15 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             {/* Right */}
-            <div className="flex items-center gap-3">
-              <Link to={createPageUrl('Catalog')} className="p-2 rounded-lg text-gray-500 hover:bg-gray-50 md:hidden">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label={theme === 'dark' ? 'Mode clair' : 'Mode sombre'}
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+              <Link to={createPageUrl('Catalog')} className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 md:hidden">
                 <Search className="w-5 h-5" />
               </Link>
 
@@ -119,13 +128,13 @@ export default function Layout({ children, currentPageName }) {
                 <div className="flex items-center gap-2">
                   <NotificationBell userEmail={user?.email} />
                   <Link to={createPageUrl('MyLearning')} className="hidden sm:flex">
-                    <Button variant="ghost" size="sm" className="text-gray-600 hover:text-[#FF6B00]">
+                    <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-[#FF6B00]">
                       <GraduationCap className="w-4 h-4 mr-1" />
                       Continuer
                     </Button>
                   </Link>
                   <Link to={createPageUrl('Profile')}>
-                    <div className="w-9 h-9 rounded-full bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] font-bold text-sm cursor-pointer hover:bg-[#FF6B00]/20 transition-colors">
+                    <div className="w-9 h-9 rounded-full bg-[#FF6B00]/10 dark:bg-orange-500/20 flex items-center justify-center text-[#FF6B00] font-bold text-sm cursor-pointer hover:bg-[#FF6B00]/20 dark:hover:bg-orange-500/30 transition-colors">
                       {user?.full_name?.[0]?.toUpperCase() || 'U'}
                     </div>
                   </Link>
@@ -136,7 +145,7 @@ export default function Layout({ children, currentPageName }) {
                     variant="ghost" 
                     size="sm"
                     onClick={() => base44.auth.redirectToLogin()}
-                    className="text-gray-600"
+                    className="text-gray-600 dark:text-gray-400"
                   >
                     Connexion
                   </Button>
@@ -153,7 +162,7 @@ export default function Layout({ children, currentPageName }) {
               {/* Mobile menu */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg text-gray-500 hover:bg-gray-50 md:hidden"
+                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 md:hidden"
               >
                 {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -163,7 +172,7 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile nav */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3 space-y-1">
+          <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 space-y-1">
             {navItems.map(item => {
               if (item.auth && !isAuthenticated) return null;
               const Icon = item.icon;
@@ -172,7 +181,7 @@ export default function Layout({ children, currentPageName }) {
                   key={item.page}
                   to={createPageUrl(item.page)}
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   <Icon className="w-5 h-5" />
                   {item.name}
@@ -183,7 +192,7 @@ export default function Layout({ children, currentPageName }) {
               <Link
                 to={createPageUrl('InstructorDashboard')}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <BarChart3 className="w-5 h-5" />
                 Espace Formateur
@@ -193,7 +202,7 @@ export default function Layout({ children, currentPageName }) {
               <Link
                 to={createPageUrl('AdminDashboard')}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 <Users className="w-5 h-5" />
                 Administration
@@ -201,18 +210,18 @@ export default function Layout({ children, currentPageName }) {
             )}
             {isAuthenticated && (
               <>
-                <div className="border-t border-gray-100 my-2" />
+                <div className="border-t border-gray-100 dark:border-gray-800 my-2" />
                 <Link
                   to={createPageUrl('Profile')}
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
                 >
                   <User className="w-5 h-5" />
                   Mon profil
                 </Link>
                 <button
                   onClick={() => logout()}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 w-full text-left"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 w-full text-left"
                 >
                   <LogOut className="w-5 h-5" />
                   Déconnexion
@@ -227,7 +236,7 @@ export default function Layout({ children, currentPageName }) {
       <main id="main-content" className="pb-16 sm:pb-0" role="main">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-[#1B1F3B] text-white mt-20">
+      <footer className="bg-[#1B1F3B] dark:bg-gray-950 text-white mt-20 border-t border-transparent dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">
@@ -272,7 +281,7 @@ export default function Layout({ children, currentPageName }) {
       </footer>
 
       {/* Mobile bottom nav */}
-      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 flex items-center justify-around px-2 py-1 shadow-lg">
+      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 flex items-center justify-around px-2 py-1 shadow-lg">
         <Link to={createPageUrl('Home')} className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-colors ${currentPageName === 'Home' ? 'text-[#FF6B00]' : 'text-gray-400'}`}>
           <Home className="w-5 h-5" />
           <span className="text-[10px] font-medium">Accueil</span>
@@ -293,7 +302,7 @@ export default function Layout({ children, currentPageName }) {
             </Link>
           </>
         ) : (
-          <button onClick={() => base44.auth.redirectToLogin()} className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400">
+          <button onClick={() => base44.auth.redirectToLogin()} className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-400 dark:text-gray-500">
             <User className="w-5 h-5" />
             <span className="text-[10px] font-medium">Connexion</span>
           </button>

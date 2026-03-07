@@ -46,12 +46,12 @@ const categories = [
 function FAQItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-gray-100 rounded-xl overflow-hidden">
-      <button onClick={() => setOpen(v => !v)} className="w-full flex items-center justify-between p-4 text-left bg-white hover:bg-gray-50 transition-colors">
-        <span className="font-medium text-[#1B1F3B] text-sm">{q}</span>
-        {open ? <ChevronUp className="w-4 h-4 text-[#FF6B00] shrink-0" /> : <ChevronDown className="w-4 h-4 text-gray-400 shrink-0" />}
+    <div className="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
+      <button onClick={() => setOpen(v => !v)} className="w-full flex items-center justify-between p-4 text-left bg-white dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+        <span className="font-medium text-[#1B1F3B] dark:text-gray-200 text-sm">{q}</span>
+        {open ? <ChevronUp className="w-4 h-4 text-[#FF6B00] dark:text-orange-400 shrink-0" /> : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />}
       </button>
-      {open && <div className="px-4 pb-4 pt-0 text-sm text-gray-500 leading-relaxed bg-white">{a}</div>}
+      {open && <div className="px-4 pb-4 pt-0 text-sm text-gray-500 dark:text-gray-400 leading-relaxed bg-white dark:bg-gray-800/50">{a}</div>}
     </div>
   );
 }
@@ -65,15 +65,15 @@ export default function Help() {
   })).filter(cat => cat.faqs.length > 0);
 
   return (
-    <div className="bg-[#FAFBFC] min-h-screen">
+    <div className="bg-[#FAFBFC] dark:bg-gray-950 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1B1F3B] to-[#2D3366] text-white py-16 px-4">
+      <div className="bg-gradient-to-br from-[#1B1F3B] to-[#2D3366] dark:from-gray-900 dark:to-gray-800 text-white py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h1 className="text-4xl font-extrabold mb-4">Centre d'aide</h1>
           <p className="text-white/70 text-lg mb-8">Trouvez rapidement des réponses à vos questions</p>
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher une question..." className="pl-11 h-12 bg-white text-gray-900 rounded-xl" />
+            <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Rechercher une question..." className="pl-11 h-12 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-xl border-gray-200 dark:border-gray-700" />
           </div>
         </div>
       </div>
@@ -84,10 +84,10 @@ export default function Help() {
             {filtered.map((cat, i) => (
               <div key={i}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded-xl bg-[#FFF3E8] flex items-center justify-center">
-                    <cat.icon className="w-5 h-5 text-[#FF6B00]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#FFF3E8] dark:bg-orange-500/20 flex items-center justify-center">
+                    <cat.icon className="w-5 h-5 text-[#FF6B00] dark:text-orange-400" />
                   </div>
-                  <h2 className="text-lg font-bold text-[#1B1F3B]">{cat.title}</h2>
+                  <h2 className="text-lg font-bold text-[#1B1F3B] dark:text-gray-100">{cat.title}</h2>
                 </div>
                 <div className="space-y-2">
                   {cat.faqs.map((faq, j) => <FAQItem key={j} q={faq.q} a={faq.a} />)}
@@ -97,15 +97,15 @@ export default function Help() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <p className="text-gray-400">Aucun résultat pour "{search}"</p>
+            <p className="text-gray-400 dark:text-gray-500">Aucun résultat pour "{search}"</p>
           </div>
         )}
 
         {/* Contact CTA */}
-        <div className="mt-16 bg-white rounded-2xl border border-gray-100 p-8 text-center">
-          <MessageCircle className="w-10 h-10 text-[#FF6B00] mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-[#1B1F3B] mb-2">Vous n'avez pas trouvé votre réponse ?</h3>
-          <p className="text-gray-500 mb-6">Notre équipe est disponible pour vous aider du lundi au vendredi, de 8h à 18h.</p>
+        <div className="mt-16 bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-8 text-center">
+          <MessageCircle className="w-10 h-10 text-[#FF6B00] dark:text-orange-400 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-[#1B1F3B] dark:text-gray-100 mb-2">Vous n'avez pas trouvé votre réponse ?</h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">Notre équipe est disponible pour vous aider du lundi au vendredi, de 8h à 18h.</p>
           <Link to={createPageUrl('Contact')} className="inline-flex items-center gap-2 bg-[#FF6B00] hover:bg-[#E55D00] text-white font-semibold px-6 py-3 rounded-xl transition-colors">
             Nous contacter
           </Link>

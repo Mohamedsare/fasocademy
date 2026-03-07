@@ -120,7 +120,7 @@ export default function CoursePage() {
   };
 
   if (isLoading || !course) {
-    return <div className="max-w-7xl mx-auto px-4 py-12 text-center text-gray-400">Chargement...</div>;
+    return <div className="max-w-7xl mx-auto px-4 py-12 text-center text-gray-400 dark:text-gray-500">Chargement...</div>;
   }
 
   const discount = course.original_price_cfa && course.original_price_cfa > course.price_cfa
@@ -134,7 +134,7 @@ export default function CoursePage() {
   return (
     <div>
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#1B1F3B] to-[#252A4A] text-white">
+      <div className="bg-gradient-to-r from-[#1B1F3B] to-[#252A4A] dark:from-gray-900 dark:to-gray-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-14">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
@@ -182,13 +182,13 @@ export default function CoursePage() {
           <div className="md:col-span-2 space-y-8">
             {/* What you'll learn */}
             {course.learning_objectives?.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="text-xl font-extrabold text-[#1B1F3B] mb-4">Ce que tu vas apprendre</h2>
+              <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-extrabold text-[#1B1F3B] dark:text-gray-100 mb-4">Ce que tu vas apprendre</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {course.learning_objectives.map((obj, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-[#00C9A7] mt-0.5 shrink-0" />
-                      <span className="text-sm text-gray-700">{obj}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{obj}</span>
                     </div>
                   ))}
                 </div>
@@ -199,23 +199,23 @@ export default function CoursePage() {
             <div className="bg-white rounded-2xl border border-gray-100 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-extrabold text-[#1B1F3B]">Contenu du cours</h2>
-                <span className="text-sm text-gray-500">{course.sections?.length || 0} sections • {totalLessons} leçons • {Math.round(totalDuration / 60)}h</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{course.sections?.length || 0} sections • {totalLessons} leçons • {Math.round(totalDuration / 60)}h</span>
               </div>
               <div className="space-y-2">
                 {course.sections?.map((section, si) => (
-                  <div key={section.id || si} className="border border-gray-100 rounded-xl overflow-hidden">
+                  <div key={section.id || si} className="border border-gray-100 dark:border-gray-700 rounded-xl overflow-hidden">
                     <button
                       onClick={() => toggleSection(section.id || si)}
-                      className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                     >
                       <div className="flex items-center gap-3">
-                        {expandedSections[section.id || si] ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
-                        <span className="font-semibold text-sm text-[#1B1F3B]">{section.title}</span>
+                        {expandedSections[section.id || si] ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-gray-500" /> : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-500" />}
+                        <span className="font-semibold text-sm text-[#1B1F3B] dark:text-gray-200">{section.title}</span>
                       </div>
-                      <span className="text-xs text-gray-400">{section.lessons?.length || 0} leçons</span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500">{section.lessons?.length || 0} leçons</span>
                     </button>
                     {expandedSections[section.id || si] && section.lessons && (
-                      <div className="border-t border-gray-50 bg-gray-50/50">
+                      <div className="border-t border-gray-50 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
                         {section.lessons.map((lesson, li) => (
                           <div key={lesson.id || li} className="flex items-center justify-between px-4 py-3 text-sm">
                             <div className="flex items-center gap-3">
@@ -224,7 +224,7 @@ export default function CoursePage() {
                               ) : (
                                 <Lock className="w-4 h-4 text-gray-300" />
                               )}
-                              <span className="text-gray-700">{lesson.title}</span>
+                              <span className="text-gray-700 dark:text-gray-300">{lesson.title}</span>
                               {lesson.is_free && <Badge className="bg-[#00C9A7]/10 text-[#00C9A7] border-0 text-xs">Gratuit</Badge>}
                             </div>
                             <span className="text-xs text-gray-400">{lesson.duration_minutes}min</span>
@@ -239,11 +239,11 @@ export default function CoursePage() {
 
             {/* Reviews */}
             {reviews.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-100 p-6">
-                <h2 className="text-xl font-extrabold text-[#1B1F3B] mb-6">Avis des apprenants</h2>
+              <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 p-6">
+                <h2 className="text-xl font-extrabold text-[#1B1F3B] dark:text-gray-100 mb-6">Avis des apprenants</h2>
                 <div className="space-y-4">
                   {reviews.map(review => (
-                    <div key={review.id} className="border-b border-gray-50 pb-4 last:border-0">
+                    <div key={review.id} className="border-b border-gray-50 dark:border-gray-700 pb-4 last:border-0">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-8 h-8 rounded-full bg-[#FF6B00]/10 flex items-center justify-center text-[#FF6B00] font-bold text-xs">
                           {review.user_name?.[0] || 'A'}
@@ -257,7 +257,7 @@ export default function CoursePage() {
                           </div>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600">{review.comment}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{review.comment}</p>
                     </div>
                   ))}
                 </div>
@@ -268,7 +268,7 @@ export default function CoursePage() {
           {/* Right sidebar - sticky purchase card */}
           <div className="md:col-span-1">
             <div className="sticky top-24">
-              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-lg">
+              <div className="bg-white dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 overflow-hidden shadow-lg dark:shadow-gray-900/50">
                 {course.thumbnail_url && (
                   <div className="relative aspect-video">
                     <img src={course.thumbnail_url} alt="" className="w-full h-full object-cover" />
@@ -283,16 +283,16 @@ export default function CoursePage() {
                   {course.is_free ? (
                     <div className="mb-4">
                       <span className="text-3xl font-extrabold text-[#00C9A7]">Gratuit</span>
-                      <p className="text-xs text-gray-400 mt-1">Accès complet sans paiement</p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Accès complet sans paiement</p>
                     </div>
                   ) : (
                     <>
                       <div className="flex items-end gap-2 mb-1">
-                        <span className="text-3xl font-extrabold text-[#1B1F3B]">{course.price_cfa?.toLocaleString('fr-FR')} CFA</span>
+                        <span className="text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">{course.price_cfa?.toLocaleString('fr-FR')} CFA</span>
                       </div>
                       {discount > 0 && (
                         <div className="flex items-center gap-2 mb-4">
-                          <span className="text-sm text-gray-400 line-through">{course.original_price_cfa?.toLocaleString('fr-FR')} CFA</span>
+                          <span className="text-sm text-gray-400 dark:text-gray-500 line-through">{course.original_price_cfa?.toLocaleString('fr-FR')} CFA</span>
                           <Badge className="bg-red-500 text-white border-0 text-xs">-{discount}%</Badge>
                         </div>
                       )}

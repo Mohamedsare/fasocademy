@@ -50,8 +50,8 @@ export default function CategoriesSection() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
       <div className="flex items-end justify-between mb-10">
         <div>
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B]">Explorer par catégorie</h2>
-          <p className="text-gray-500 mt-2">Trouve la formation qui correspond à tes objectifs</p>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Explorer par catégorie</h2>
+          <p className="text-gray-500 dark:text-gray-400 mt-2">Trouve la formation qui correspond à tes objectifs</p>
         </div>
         <Link to={createPageUrl('Catalog')} className="hidden md:flex items-center gap-1 text-[#FF6B00] font-semibold text-sm hover:underline">
           Tout voir <ArrowRight className="w-4 h-4" />
@@ -65,13 +65,13 @@ export default function CategoriesSection() {
             <Link
               key={cat.slug}
               to={createPageUrl('Catalog') + `?cat=${cat.slug}`}
-              className="group relative bg-white rounded-2xl p-5 border border-gray-100 hover:border-[#FF6B00]/30 hover:shadow-lg transition-all text-center"
+              className="group relative bg-white dark:bg-gray-800/50 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 hover:border-[#FF6B00]/30 dark:hover:border-orange-500/50 hover:shadow-lg dark:hover:shadow-orange-500/5 transition-all text-center"
             >
               <div className={`${cat.color} w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform`}>
                 <Icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="font-bold text-sm text-[#1B1F3B]">{cat.name}</h3>
-              <p className="text-xs text-gray-400 mt-1">{cat.count} formation{cat.count !== 1 ? 's' : ''}</p>
+              <h3 className="font-bold text-sm text-[#1B1F3B] dark:text-gray-100">{cat.name}</h3>
+              <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{cat.count} formation{cat.count !== 1 ? 's' : ''}</p>
             </Link>
           );
         })}

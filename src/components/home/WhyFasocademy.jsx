@@ -42,23 +42,23 @@ const features = [
 
 export default function WhyFasocademy() {
   return (
-    <section className="bg-gradient-to-b from-[#FAFBFC] to-white py-16">
+    <section className="bg-gradient-to-b from-[#FAFBFC] to-white dark:from-gray-950 dark:to-gray-900 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B]">Pourquoi choisir FasoCademy ?</h2>
-          <p className="text-gray-500 mt-2 max-w-lg mx-auto">Une plateforme pensée pour l'Afrique francophone, avec des outils modernes</p>
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Pourquoi choisir FasoCademy ?</h2>
+          <p className="text-gray-500 dark:text-gray-400 mt-2 max-w-lg mx-auto">Une plateforme pensée pour l'Afrique francophone, avec des outils modernes</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (
-              <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all group">
-                <div className={`${feature.color} w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+              <div key={i} className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/50 transition-all group">
+                <div className={`${feature.color} dark:opacity-90 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-[#1B1F3B] mb-2">{feature.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{feature.description}</p>
+                <h3 className="font-bold text-[#1B1F3B] dark:text-gray-100 mb-2">{feature.title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{feature.description}</p>
               </div>
             );
           })}
