@@ -365,6 +365,29 @@ export const base44 = {
         }
       },
       async UploadFile({ file }) {
+        const apiBaseUrl = import.meta.env.VITE_API_URL;
+        if (apiBaseUrl) {
+          try {
+            const base64 = await new Promise((resolve, reject) => {
+              const r = new FileReader();
+              r.onload = () => resolve(r.result);
+              r.onerror = reject;
+              r.readAsDataURL(file);
+            });
+            const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+            const res = await fetch(`${apiBaseUrl}/api/upload`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: base64, ext }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || 'Upload failed');
+            return data;
+          } catch (err) {
+            console.error('API upload failed:', err);
+            throw err;
+          }
+        }
         const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
         if (supabaseUrl) {
           try {
@@ -375,22 +398,7 @@ export const base44 = {
             throw err;
           }
         }
-        const apiBaseUrl = import.meta.env.VITE_API_URL;
-        if (!apiBaseUrl) {
-          throw new Error('Configurez VITE_SUPABASE_URL pour l\'upload des miniatures (Supabase Storage).');
-        }
-        const form = new FormData();
-        form.append('file', file);
-        const res = await fetch(`${apiBaseUrl}/api/upload`, {
-          method: 'POST',
-          body: form,
-        });
-        if (!res.ok) {
-          const text = await res.text();
-          console.error('UploadFile failed:', text);
-          throw new Error('Upload failed');
-        }
-        return res.json();
+        throw new Error('Configurez VITE_API_URL ou VITE_SUPABASE_URL pour l\'upload des miniatures.');
       },
     },
   },

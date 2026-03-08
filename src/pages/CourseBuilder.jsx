@@ -148,8 +148,17 @@ export default function CourseBuilder() {
   const handleUploadThumbnail = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    setForm({ ...form, thumbnail_url: file_url });
+    setThumbnailError('');
+    setUploadingThumbnail(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setForm({ ...form, thumbnail_url: file_url });
+    } catch (err) {
+      const msg = err?.message || 'Échec upload';
+      setThumbnailError(msg + (import.meta.env.VITE_API_URL ? '' : ' — Configurez VITE_API_URL (URL du site) pour l\'upload.'));
+    } finally {
+      setUploadingThumbnail(false);
+    }
   };
 
   if (!user) return null;
