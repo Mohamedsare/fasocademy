@@ -306,6 +306,29 @@ export const base44 = {
           });
       },
     },
+    SiteSettings: {
+      async get(key) {
+        const { data, error } = await supabase
+          .from('site_settings')
+          .select('value')
+          .eq('key', key)
+          .maybeSingle();
+        if (error) {
+          console.error('SiteSettings.get error:', error);
+          return null;
+        }
+        return data?.value ?? null;
+      },
+      async set(key, value) {
+        const { error } = await supabase
+          .from('site_settings')
+          .upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+        if (error) {
+          console.error('SiteSettings.set error:', error);
+          throw error;
+        }
+      },
+    },
     Assignment: {
       filter(filters = {}, order, limit) {
         return wrapListWithOrderAndLimit('assignments', filters, order, limit);

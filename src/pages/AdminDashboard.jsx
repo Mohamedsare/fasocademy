@@ -14,6 +14,7 @@ import AdminPaymentsTable from '@/components/admin/AdminPaymentsTable';
 import AdminPlatformStats from '@/components/admin/AdminPlatformStats';
 import AdminTestimonialsTable from '@/components/admin/AdminTestimonialsTable';
 import AdminInstructorRequests from '@/components/admin/AdminInstructorRequests';
+import AdminHeroBanner from '@/components/admin/AdminHeroBanner';
 
 export default function AdminDashboard() {
   const [user, setUser] = useState(null);
@@ -134,6 +135,7 @@ export default function AdminDashboard() {
             <TabsTrigger value="users">👥 Utilisateurs</TabsTrigger>
             <TabsTrigger value="payments">💳 Paiements</TabsTrigger>
             <TabsTrigger value="testimonials">💬 Témoignages</TabsTrigger>
+            <TabsTrigger value="homepage">🏠 Page d'accueil</TabsTrigger>
           </TabsList>
 
           <TabsContent value="analytics">
@@ -161,6 +163,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="testimonials">
             <AdminTestimonialsTable />
+          </TabsContent>
+
+          <TabsContent value="homepage">
+            <AdminHeroBanner />
           </TabsContent>
         </Tabs>
       </div>

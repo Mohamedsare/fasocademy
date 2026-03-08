@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Play, ArrowRight, CheckCircle, Award } from 'lucide-react';
+
+const DEFAULT_BANNER = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80';
 
 export default function HeroSection() {
   const location = useLocation();
@@ -83,9 +87,10 @@ export default function HeroSection() {
               {/* Main image card */}
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10">
                 <img 
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" 
+                  src={bannerUrl || DEFAULT_BANNER} 
                   alt="Étudiants" 
                   className="w-full h-48 object-cover rounded-xl mb-4"
+                  onError={(e) => { e.target.src = DEFAULT_BANNER; }}
                 />
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
