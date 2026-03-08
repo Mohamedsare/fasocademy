@@ -30,6 +30,7 @@ export default function Home() {
         isLoading={isLoading} 
         title="Formations en vedette"
         subtitle="Sélectionnées par notre équipe pour toi"
+        sectionId="formations"
       />
       {popularCourses.length > 0 && (
         <FeaturedCourses 

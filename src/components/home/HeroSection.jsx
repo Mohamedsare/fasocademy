@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from '@/components/ui/button';
-import { Play, ArrowRight, CheckCircle, Users, BookOpen, Award } from 'lucide-react';
+import { Play, ArrowRight, CheckCircle, Award } from 'lucide-react';
 
 export default function HeroSection() {
   return (
@@ -41,7 +41,7 @@ export default function HeroSection() {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to={createPageUrl('Catalog')}>
+              <Link to={createPageUrl('Catalog')} onClick={handleDemoClick}>
                 <Button variant="outline" size="lg" className="border-2 border-white/50 bg-transparent !text-white hover:!text-white hover:bg-white/15 hover:border-white/70 h-12 w-full sm:w-auto font-semibold shadow-none">
                   <Play className="w-5 h-5 mr-2" />
                   Voir la démo

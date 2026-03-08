@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { supabase } from '@/lib/supabase';
+import { base44 } from '@/api/base44Client';
 import { Code, BarChart3, Shield, FileSpreadsheet, Briefcase, Palette, ArrowRight } from 'lucide-react';
 
 const categoryConfig = [
@@ -15,14 +15,7 @@ const categoryConfig = [
 ];
 
 async function fetchCategoryCounts() {
-  const { data, error } = await supabase
-    .from('courses')
-    .select('category')
-    .eq('status', 'published');
-  if (error) {
-    console.error('CategoriesSection fetchCategoryCounts:', error);
-    return {};
-  }
+  const data = await base44.entities.Course.filter({ status: 'published' }, null, 500);
   const counts = {};
   (data || []).forEach((row) => {
     const cat = row.category || 'other';
@@ -53,7 +46,7 @@ export default function CategoriesSection() {
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#1B1F3B] dark:text-gray-100">Explorer par catégorie</h2>
           <p className="text-gray-500 dark:text-gray-400 mt-2">Trouve la formation qui correspond à tes objectifs</p>
         </div>
-        <Link to={createPageUrl('Catalog')} className="hidden md:flex items-center gap-1 text-[#FF6B00] font-semibold text-sm hover:underline">
+        <Link to={createPageUrl('Catalog')} className="flex items-center gap-1 text-[#FF6B00] dark:text-orange-400 font-semibold text-sm hover:underline shrink-0">
           Tout voir <ArrowRight className="w-4 h-4" />
         </Link>
       </div>
