@@ -207,7 +207,9 @@ export default function InstructorDashboard() {
                       {course.status === 'published' ? 'Publié' : course.status === 'review' ? 'En revue' : 'Brouillon'}
                     </Badge>
                     <Link to={createPageUrl('CourseBuilder') + `?id=${course.id}`}>
-                      <Button variant="ghost" size="sm"><Eye className="w-4 h-4" /></Button>
+                      <Button variant="outline" size="sm" className="border-[#FF6B00] text-[#FF6B00] hover:bg-[#FFF3E8] dark:border-orange-500 dark:text-orange-400 dark:hover:bg-orange-950/30">
+                        <PenLine className="w-4 h-4 mr-1" />Modifier
+                      </Button>
                     </Link>
                   </div>
                 ))}

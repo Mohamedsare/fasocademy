@@ -43,6 +43,8 @@ export default function CourseBuilder() {
 
   const [user, setUser] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [thumbnailError, setThumbnailError] = useState('');
   const [expandedSections, setExpandedSections] = useState({0: true});
   const [form, setForm] = useState({
     title: '', description: '', long_description: '', category: 'developpement-web',
@@ -216,13 +218,25 @@ export default function CourseBuilder() {
               </div>
               <div>
                 <Label>Miniature du cours</Label>
-                <div className="mt-1 flex items-center gap-4">
-                  {form.thumbnail_url && <img src={form.thumbnail_url} alt="" className="w-24 h-16 rounded-lg object-cover" />}
-                  <label className="cursor-pointer bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors">
-                    <Upload className="w-4 h-4 inline mr-2" />Uploader
-                    <input type="file" className="hidden" accept="image/*" onChange={handleUploadThumbnail} />
-                  </label>
+                <div className="mt-1 flex flex-wrap items-center gap-4">
+                  {form.thumbnail_url && (
+                    <img src={form.thumbnail_url} alt="" className="w-24 h-16 rounded-lg object-cover border border-gray-200" />
+                  )}
+                  <div className="flex flex-col gap-2">
+                    <label className={`cursor-pointer inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-sm text-gray-600 dark:text-gray-400 transition-colors ${uploadingThumbnail ? 'opacity-60 pointer-events-none' : ''}`}>
+                      {uploadingThumbnail ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                      {uploadingThumbnail ? 'Upload en cours…' : 'Choisir une image'}
+                      <input type="file" className="hidden" accept="image/*" onChange={handleUploadThumbnail} disabled={uploadingThumbnail} />
+                    </label>
+                    <Input
+                      value={form.thumbnail_url}
+                      onChange={e => { setForm({ ...form, thumbnail_url: e.target.value }); setThumbnailError(''); }}
+                      placeholder="Ou coller une URL (ex: https://...)"
+                      className="text-sm max-w-xs"
+                    />
+                  </div>
                 </div>
+                {thumbnailError && <p className="text-xs text-red-500 mt-1">{thumbnailError}</p>}
               </div>
             </CardContent>
           </Card>

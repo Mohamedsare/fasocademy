@@ -365,9 +365,19 @@ export const base44 = {
         }
       },
       async UploadFile({ file }) {
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        if (supabaseUrl) {
+          try {
+            const { uploadThumbnailToSupabase } = await import('@/lib/uploadThumbnail');
+            return uploadThumbnailToSupabase(file);
+          } catch (err) {
+            console.error('Supabase upload failed:', err);
+            throw err;
+          }
+        }
         const apiBaseUrl = import.meta.env.VITE_API_URL;
         if (!apiBaseUrl) {
-          throw new Error('VITE_API_URL is required for file upload');
+          throw new Error('Configurez VITE_SUPABASE_URL pour l\'upload des miniatures (Supabase Storage).');
         }
         const form = new FormData();
         form.append('file', file);

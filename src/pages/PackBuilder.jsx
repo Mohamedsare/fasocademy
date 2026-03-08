@@ -24,6 +24,8 @@ export default function PackBuilder() {
   const [user, setUser] = useState(null);
   const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
+  const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
+  const [thumbnailError, setThumbnailError] = useState('');
   const [form, setForm] = useState({
     title: '',
     slug: '',
@@ -88,8 +90,16 @@ export default function PackBuilder() {
   const handleUploadThumbnail = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const { file_url } = await base44.integrations.Core.UploadFile({ file });
-    setForm({ ...form, thumbnail_url: file_url });
+    setThumbnailError('');
+    setUploadingThumbnail(true);
+    try {
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      setForm({ ...form, thumbnail_url: file_url });
+    } catch (err) {
+      setThumbnailError(err?.message || 'Échec de l\'upload. Configurez le bucket Supabase.');
+    } finally {
+      setUploadingThumbnail(false);
+    }
   };
 
   const handleSave = async () => {
@@ -203,13 +213,16 @@ export default function PackBuilder() {
               </div>
               <div>
                 <Label>Miniature</Label>
-                <div className="mt-1 flex items-center gap-3">
-                  {form.thumbnail_url && <img src={form.thumbnail_url} alt="" className="w-20 h-14 rounded-lg object-cover" />}
-                  <label className="cursor-pointer bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors">
-                    <Upload className="w-4 h-4 inline mr-1" />Uploader
-                    <input type="file" className="hidden" accept="image/*" onChange={handleUploadThumbnail} />
+                <div className="mt-1 flex flex-wrap items-center gap-3">
+                  {form.thumbnail_url && <img src={form.thumbnail_url} alt="" className="w-20 h-14 rounded-lg object-cover border border-gray-200" />}
+                  <label className={`cursor-pointer inline-flex items-center gap-2 bg-gray-50 hover:bg-gray-100 border border-dashed border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-600 transition-colors ${uploadingThumbnail ? 'opacity-60 pointer-events-none' : ''}`}>
+                    {uploadingThumbnail ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                    {uploadingThumbnail ? 'Upload…' : 'Choisir une image'}
+                    <input type="file" className="hidden" accept="image/*" onChange={handleUploadThumbnail} disabled={uploadingThumbnail} />
                   </label>
+                  <Input value={form.thumbnail_url} onChange={e => setForm({ ...form, thumbnail_url: e.target.value })} placeholder="Ou coller une URL" className="text-sm max-w-xs" />
                 </div>
+                {thumbnailError && <p className="text-xs text-red-500 mt-1">{thumbnailError}</p>}
               </div>
             </CardContent>
           </Card>
