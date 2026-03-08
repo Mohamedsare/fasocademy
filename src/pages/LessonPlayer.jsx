@@ -1,5 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+
+function isYouTubeOrVimeo(url) {
+  if (!url) return false;
+  return /youtube\.com|youtu\.be|youtube\.com\/embed|vimeo\.com/i.test(url);
+}
+
+function sanitizeEmbedUrl(url) {
+  if (!url) return '';
+  // Déjà en format embed YouTube
+  if (url.includes('youtube.com/embed/')) return url.split('?')[0] + '?rel=0&autoplay=1';
+  // youtube.com/watch?v=XXX ou youtu.be/XXX → embed
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?rel=0&autoplay=1`;
+  // vimeo.com/XXX → embed
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1`;
+  return url;
+}
 import { createPageUrl } from '@/utils';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
@@ -170,13 +188,24 @@ export default function LessonPlayer() {
             {/* Video / Content area */}
             <div className="bg-black aspect-video max-h-[60vh] flex items-center justify-center">
               {currentLesson.video_url ? (
-                <video
-                  key={currentLesson.video_url}
-                  src={currentLesson.video_url}
-                  controls
-                  className="w-full h-full"
-                  autoPlay
-                />
+                isYouTubeOrVimeo(currentLesson.video_url) ? (
+                  <iframe
+                    key={currentLesson.video_url}
+                    src={sanitizeEmbedUrl(currentLesson.video_url)}
+                    title={currentLesson.title || 'Vidéo'}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <video
+                    key={currentLesson.video_url}
+                    src={currentLesson.video_url}
+                    controls
+                    className="w-full h-full"
+                    autoPlay
+                  />
+                )
               ) : (
                 <div className="text-center text-white/60">
                   <FileText className="w-16 h-16 mx-auto mb-4" />
