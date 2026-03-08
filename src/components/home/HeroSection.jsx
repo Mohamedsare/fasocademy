@@ -12,6 +12,12 @@ export default function HeroSection() {
   const location = useLocation();
   const isHome = location.pathname === '/' || location.pathname === '/Home';
 
+  const { data: bannerUrl } = useQuery({
+    queryKey: ['site-settings', 'hero_banner_url'],
+    queryFn: () => base44.entities.SiteSettings.get('hero_banner_url'),
+    placeholderData: DEFAULT_BANNER,
+  });
+
   const handleDemoClick = (e) => {
     if (isHome) {
       e.preventDefault();
