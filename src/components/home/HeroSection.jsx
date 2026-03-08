@@ -5,6 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Play, ArrowRight, CheckCircle, Award } from 'lucide-react';
 
 export default function HeroSection() {
+  const location = useLocation();
+  const isHome = location.pathname === '/' || location.pathname === '/Home';
+
+  const handleDemoClick = (e) => {
+    if (isHome) {
+      e.preventDefault();
+      document.getElementById('formations')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-[#1B1F3B] via-[#252A4A] to-[#1B1F3B] dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Decorative elements */}
