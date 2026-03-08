@@ -23,6 +23,7 @@ export default function PackBuilder() {
 
   const [user, setUser] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
   const [preview, setPreview] = useState(false);
   const [uploadingThumbnail, setUploadingThumbnail] = useState(false);
   const [thumbnailError, setThumbnailError] = useState('');
@@ -103,29 +104,48 @@ export default function PackBuilder() {
   };
 
   const handleSave = async () => {
-    setSaving(true);
-    const data = {
-      ...form,
-      instructor_email: user.email,
-      instructor_name: user.full_name,
-      course_titles: selectedCourses.map(c => c.title),
-      total_price_cfa: totalPriceCFA,
-      discount_percent: discountPercent,
-      total_hours: totalHours,
-      total_lessons: totalLessons,
-      highlights: form.highlights.filter(Boolean),
-      slug: form.slug || form.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-    };
-    delete data.id; delete data.created_at; delete data.updated_at; delete data.created_by;
-
-    if (packId) {
-      await base44.entities.CoursePack.update(packId, data);
-    } else {
-      await base44.entities.CoursePack.create(data);
+    setSaveError('');
+    if (!form.title?.trim()) {
+      setSaveError('Le titre du pack est requis.');
+      return;
     }
-    queryClient.invalidateQueries({ queryKey: ['packs'] });
-    setSaving(false);
-    navigate(createPageUrl('InstructorDashboard'));
+    if (form.course_ids.length === 0) {
+      setSaveError('Sélectionne au moins un cours dans le pack.');
+      return;
+    }
+    setSaving(true);
+    try {
+      const data = {
+        ...form,
+        instructor_email: user.email,
+        instructor_name: user.full_name,
+        course_titles: selectedCourses.map(c => c.title),
+        total_price_cfa: totalPriceCFA,
+        discount_percent: discountPercent,
+        total_hours: totalHours,
+        total_lessons: totalLessons,
+        highlights: form.highlights.filter(Boolean),
+        slug: form.slug || form.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        pack_price_cfa: Number(form.pack_price_cfa) || 0,
+      };
+      delete data.id;
+      delete data.created_at;
+      delete data.updated_at;
+      delete data.created_by;
+
+      if (packId) {
+        await base44.entities.CoursePack.update(packId, data);
+      } else {
+        await base44.entities.CoursePack.create(data);
+      }
+      queryClient.invalidateQueries({ queryKey: ['instructor-packs'] });
+      navigate(createPageUrl('InstructorDashboard'));
+    } catch (err) {
+      console.error('PackBuilder save error:', err);
+      setSaveError(err?.message || 'Erreur lors de l\'enregistrement. La table "course_packs" existe-t-elle dans Supabase ?');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const previewPack = {
@@ -160,6 +180,11 @@ export default function PackBuilder() {
           Enregistrer
         </Button>
       </div>
+      {saveError && (
+        <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm">
+          {saveError}
+        </div>
+      )}
 
       <div className={`grid gap-6 ${preview ? 'md:grid-cols-2' : 'md:grid-cols-1'}`}>
         <div className="space-y-6">
